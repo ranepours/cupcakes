@@ -59,4 +59,4 @@ def delete_cc(cupcake_id):
     cupcake = Cupcake.query.get_or_404(cupcake_id)
     db.session.delete(cupcake)
     db.session.commit()
-    return jsonify(message="Deleted")
+    return jsonify(message="deleted")
