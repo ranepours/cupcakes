@@ -1,4 +1,3 @@
-from distutils.log import debug
 from flask import Flask, render_template, request, jsonify
 from flask_debugtoolbar import DebugToolbarExtension
 from models import db, connect_db, Cupcake
@@ -11,6 +10,11 @@ app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 
 debug = DebugToolbarExtension(app)
 connect_db(app)
+
+@app.route('/')
+def render_html():
+    """making the front end (booooo)"""
+    return render_template('index.html')
 
 @app.route('/api/cupcakes')
 def cupcake_data():
@@ -38,7 +42,7 @@ def create_cupcake():
 def update_cc(cupcake_id):
     """UPDATE CC BY PASSING ID - RETURN 404 IF INVALID CC_ID PASSED"""
     d = request.json
-    
+
     cupcake = Cupcake.query.get_or_404(cupcake_id)
     cupcake.flavor=d['flavor']
     cupcake.rating=d['rating']
